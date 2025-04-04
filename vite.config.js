@@ -12,14 +12,19 @@ export default defineConfig({
         }),
     ],
 
-    server: {
-        proxy: {
-            // Proxy API requests to Laravel's backend (allowing API requests on frontend)
-            '/': 'http://localhost:8000',
-        },
-        hmr: {
-            host: 'localhost', // Ensures HMR works properly with Vite on localhost
-            port: 5173, // Default Vite HMR port
-        },
+    build: {
+        manifest:true,
+        outDir: 'public/build',
     },
+
+//    server: {
+//        proxy: {
+            // Proxy API requests to Laravel's backend (allowing API requests on frontend)
+//            '/': 'http://localhost:8000',
+//        },
+//        hmr: {
+//            host: 'localhost', // Ensures HMR works properly with Vite on localhost
+//            port: 5173, // Default Vite HMR port
+//        },
+//    },
 });

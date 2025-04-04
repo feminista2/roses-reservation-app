@@ -1,7 +1,7 @@
-# Use an official PHP image with necessary extensions
-FROM php:8.2-fpm
+# Use the official PHP 8.4 FPM image
+FROM php:8.4-fpm
 
-# Set working directory
+# Set the working directory
 WORKDIR /var/www/html
 
 # Install system dependencies
@@ -24,7 +24,7 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Install Node.js and Vite dependencies
+# Install Node.js and build assets
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && npm install \
@@ -33,9 +33,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 # Set permissions for storage and cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Expose the port Nginx or PHP will run on
+# Expose port 9000 and start PHP-FPM server
 EXPOSE 9000
-
-# Start the PHP-FPM server
 CMD ["php-fpm"]
-

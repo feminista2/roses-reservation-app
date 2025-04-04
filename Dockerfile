@@ -1,5 +1,5 @@
 # Use the official PHP 8.4 FPM image
-FROM php:8.4-fpm
+FROM php:8.4-cli
 
 # Set the working directory
 WORKDIR /var/www/html
@@ -33,6 +33,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 # Set permissions for storage and cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Expose port 9000 and start PHP-FPM server
-EXPOSE 9000
-CMD ["php-fpm"]
+# Expose port 80
+EXPOSE 80
+
+# Run Laravel dev server on container startup
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]

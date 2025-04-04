@@ -5,26 +5,20 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.css', // Tailwind CSS or custom styles
-                'resources/js/app.js',   // Main JavaScript file
+                'resources/css/app.css',
+                'resources/js/app.js',
             ],
-            refresh: true, // Enable hot module replacement (HMR) for CSS and JS changes
+            refresh: true,
         }),
     ],
-
     build: {
-        manifest:true,
+        manifest: true,
         outDir: 'public/build',
+        rollupOptions: {
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+            ],
+        },
     },
-
-//    server: {
-//        proxy: {
-            // Proxy API requests to Laravel's backend (allowing API requests on frontend)
-//            '/': 'http://localhost:8000',
-//        },
-//        hmr: {
-//            host: 'localhost', // Ensures HMR works properly with Vite on localhost
-//            port: 5173, // Default Vite HMR port
-//        },
-//    },
 });

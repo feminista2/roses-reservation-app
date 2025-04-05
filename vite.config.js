@@ -16,10 +16,14 @@ export default defineConfig({
         outDir: 'public/build',
         emptyOutDir: true,
         rollupOptions: {
-            input: [
-                'resources/css/app.css',
-                'resources/js/app.js',
-            ],
+             input: {
+                app: 'resources/js/app.js',  // Specific input path for JS
+                css: 'resources/css/app.css',  // Specific input path for CSS
+            },
+            output: {
+                // Ensure output is correctly set to public/build
+                dir: 'public/build',
+            },
         },
     },
 });

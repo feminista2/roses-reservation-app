@@ -22,4 +22,5 @@ export default defineConfig({
             ],
         },
     },
+    base: '', // ⬅️ This tells Vite to NOT add a subfolder like .vite/
 });

@@ -22,5 +22,5 @@ export default defineConfig({
             ],
         },
     },
-    base: 'build', // Make sure assets are served from the build folder
+    base: '/build/', // Make sure assets are served from the build folder
 });

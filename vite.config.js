@@ -22,5 +22,5 @@ export default defineConfig({
             ],
         },
     },
-    base: '', // ⬅️ This tells Vite to NOT add a subfolder like .vite/
+    base: 'build', // Make sure assets are served from the build folder
 });

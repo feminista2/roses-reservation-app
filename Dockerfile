@@ -50,6 +50,9 @@ RUN composer install --no-dev --optimize-autoloader
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 755 public
+RUN find public -type d -exec chmod 755 {} \;
+RUN find public -type f -exec chmod 644 {} \;
 
 # Start script
 COPY docker/start.sh /usr/local/bin/start

@@ -6,8 +6,11 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
-            // Add this line to change the manifest path
             buildDirectory: './build/',
         }),
     ],
+    build: {
+        // This will prevent Vite from emptying directories that aren't part of its output
+        emptyOutDir: false,
+    }
 });

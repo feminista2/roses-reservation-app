@@ -20,11 +20,13 @@ RUN apt-get update && apt-get install -y \
     zip \
     libpq-dev \
     nginx \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_pgsql
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_pgsql \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Configure nginx
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-RUN rm /etc/nginx/sites-enabled/default || true
+RUN rm -f /etc/nginx/sites-enabled/default
 
 # Set working directory
 WORKDIR /var/www/html
@@ -37,10 +39,10 @@ COPY . .
 
 # Copy built assets from node stage
 COPY --from=node-build /app/public/build /var/www/html/public/build
+COPY --from=node-build /app/public/assets /var/www/html/public/assets
 
-# Restore images directory from the source code, ensuring it won't be deleted
+# Make sure the images directory exists (no need for custom copy as images are in the source)
 RUN mkdir -p public/images/logos
-COPY public/images/ public/images/ || true
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader

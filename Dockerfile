@@ -40,7 +40,7 @@ COPY --from=node-build /app/public/build /var/www/html/public/build
 
 # Restore images directory from the source code, ensuring it won't be deleted
 RUN mkdir -p public/images/logos
-COPY --if-present public/images/ public/images/
+COPY public/images/ public/images/ || true
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader

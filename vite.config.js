@@ -6,20 +6,12 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
-            buildDirectory: 'build',
         }),
     ],
     build: {
         manifest: true,
         outDir: 'public/build',
-        // This will prevent Vite from emptying directories that aren't part of its output
-        emptyOutDir: true,
-        rollupOptions: {
-            input: [
-                'resources/css/app.css',
-                'resources/js/app.js',
-            ],
-        },
+        emptyOutDir: false, // Change this to false to prevent deletion of other files
     },
-    base: '/build/', // Ensures correct asset paths in production
+    base: '/build/',
 });

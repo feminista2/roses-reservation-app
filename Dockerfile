@@ -6,6 +6,10 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+# In the build stage, after npm run build
+RUN ls -la public/build/assets/  # Debug: List what's in the build output
+RUN cp -r public/build /app/build-backup  # Save a backup of the build
+
 # PHP stage
 FROM php:8.4-fpm
 
@@ -40,6 +44,7 @@ COPY . .
 # Copy built assets from node stage
 COPY --from=node-build /app/public/build /var/www/html/public/build
 COPY --from=node-build /app/public/assets /var/www/html/public/assets
+RUN ls -la /var/www/html/public/build/assets/  # Debug: Confirm files are copied
 
 # Make sure the images directory exists (no need for custom copy as images are in the source)
 RUN mkdir -p public/images/logos
